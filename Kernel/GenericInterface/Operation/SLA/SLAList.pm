@@ -46,18 +46,6 @@ sub Run {
         ErrorMessage => 'SLAList: Could not authenticate.',
     ) if !$UserID;
 
-    # Check group permission.
-    my $HasPermission = $Kernel::OM->Get('Kernel::GenericInterface::Operation::Extensions::Common')->CheckGroupPermission(
-        UserID     => $UserID,
-        GroupName  => 'users',
-        Permission => 'ro',
-    );
-
-    return $Self->ReturnError(
-        ErrorCode    => 'SLAList.AccessDenied',
-        ErrorMessage => 'SLAList: User does not have access.',
-    ) if !$HasPermission;
-
     my $Valid = defined $Param{Data}{Valid} ? $Param{Data}{Valid} : 1;
 
     my %SLAListParams = (

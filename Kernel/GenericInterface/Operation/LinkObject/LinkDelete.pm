@@ -46,18 +46,6 @@ sub Run {
         ErrorMessage => 'LinkDelete: Could not authenticate.',
     ) if !$UserID;
 
-    # Check group permission (rw required for write operations).
-    my $HasPermission = $Kernel::OM->Get('Kernel::GenericInterface::Operation::Extensions::Common')->CheckGroupPermission(
-        UserID     => $UserID,
-        GroupName  => 'users',
-        Permission => 'rw',
-    );
-
-    return $Self->ReturnError(
-        ErrorCode    => 'LinkDelete.AccessDenied',
-        ErrorMessage => 'LinkDelete: User does not have write access.',
-    ) if !$HasPermission;
-
     # Validate required params.
     # Uses Object1/Key1/Object2/Key2 (not Source/Target) because LinkDelete is direction-agnostic.
     my $CommonObject = $Kernel::OM->Get('Kernel::GenericInterface::Operation::Extensions::Common');

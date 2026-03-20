@@ -12,7 +12,6 @@ use strict;
 use warnings;
 
 our @ObjectDependencies = (
-    'Kernel::System::Group',
     'Kernel::System::Log',
 );
 
@@ -21,43 +20,6 @@ sub new {
     my $Self = {};
     bless( $Self, $Type );
     return $Self;
-}
-
-=head2 CheckGroupPermission()
-
-Verify if a user has the specified permission level in a given group.
-
-    my $HasPermission = $CommonObject->CheckGroupPermission(
-        UserID     => 123,
-        GroupName  => 'users',
-        Permission => 'ro',    # 'ro' or 'rw'
-    );
-
-Returns 1 if the user has permission, 0 otherwise.
-
-=cut
-
-sub CheckGroupPermission {
-    my ( $Self, %Param ) = @_;
-
-    # Check required params.
-    for my $Needed (qw(UserID GroupName Permission)) {
-        if ( !$Param{$Needed} ) {
-            $Kernel::OM->Get('Kernel::System::Log')->Log(
-                Priority => 'error',
-                Message  => "CheckGroupPermission: Need $Needed!",
-            );
-            return 0;
-        }
-    }
-
-    my $HasPermission = $Kernel::OM->Get('Kernel::System::Group')->PermissionCheck(
-        UserID    => $Param{UserID},
-        GroupName => $Param{GroupName},
-        Type      => $Param{Permission},
-    );
-
-    return $HasPermission ? 1 : 0;
 }
 
 =head2 ValidateRequiredParams()

@@ -46,18 +46,6 @@ sub Run {
         ErrorMessage => 'LinkAdd: Could not authenticate.',
     ) if !$UserID;
 
-    # Check group permission (rw required for write operations).
-    my $HasPermission = $Kernel::OM->Get('Kernel::GenericInterface::Operation::Extensions::Common')->CheckGroupPermission(
-        UserID     => $UserID,
-        GroupName  => 'users',
-        Permission => 'rw',
-    );
-
-    return $Self->ReturnError(
-        ErrorCode    => 'LinkAdd.AccessDenied',
-        ErrorMessage => 'LinkAdd: User does not have write access.',
-    ) if !$HasPermission;
-
     # Validate required params.
     my $CommonObject = $Kernel::OM->Get('Kernel::GenericInterface::Operation::Extensions::Common');
     my $Validation = $CommonObject->ValidateRequiredParams(

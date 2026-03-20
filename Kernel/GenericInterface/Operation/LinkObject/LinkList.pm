@@ -46,18 +46,6 @@ sub Run {
         ErrorMessage => 'LinkList: Could not authenticate.',
     ) if !$UserID;
 
-    # Check group permission.
-    my $HasPermission = $Kernel::OM->Get('Kernel::GenericInterface::Operation::Extensions::Common')->CheckGroupPermission(
-        UserID     => $UserID,
-        GroupName  => 'users',
-        Permission => 'ro',
-    );
-
-    return $Self->ReturnError(
-        ErrorCode    => 'LinkList.AccessDenied',
-        ErrorMessage => 'LinkList: User does not have access.',
-    ) if !$HasPermission;
-
     # Validate required params.
     my $Object = $Param{Data}{Object};
     my $Key    = $Param{Data}{Key};

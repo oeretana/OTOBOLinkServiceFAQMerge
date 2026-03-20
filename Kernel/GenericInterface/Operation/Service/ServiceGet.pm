@@ -46,18 +46,6 @@ sub Run {
         ErrorMessage => 'ServiceGet: Could not authenticate.',
     ) if !$UserID;
 
-    # Check group permission.
-    my $HasPermission = $Kernel::OM->Get('Kernel::GenericInterface::Operation::Extensions::Common')->CheckGroupPermission(
-        UserID     => $UserID,
-        GroupName  => 'users',
-        Permission => 'ro',
-    );
-
-    return $Self->ReturnError(
-        ErrorCode    => 'ServiceGet.AccessDenied',
-        ErrorMessage => 'ServiceGet: User does not have access.',
-    ) if !$HasPermission;
-
     # Validate required params.
     my $ServiceID = $Param{Data}{ServiceID};
 
