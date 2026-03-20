@@ -13,10 +13,7 @@ use warnings;
 
 use Kernel::System::VariableCheck qw(:all);
 
-use parent qw(
-    Kernel::GenericInterface::Operation::Common
-    Kernel::GenericInterface::Operation::Ticket::Common
-);
+use parent qw(Kernel::GenericInterface::Operation::Common);
 
 our $ObjectManagerDisabled = 1;
 
@@ -26,17 +23,15 @@ sub new {
     my $Self = {};
     bless( $Self, $Type );
 
-    # Init from Ticket::Common (which inherits from Operation::Common).
-    my $Result = $Self->Init(
-        WebserviceID => $Param{WebserviceID},
-    );
-
-    if ( !$Result->{Success} ) {
-        $Self->ReturnError(
-            ErrorCode    => 'TicketMerge.InternalError',
-            ErrorMessage => 'TicketMerge: Could not initialize.',
-        );
-        return;
+    # Store DebuggerObject and WebserviceID (needed by ReturnError/Auth).
+    for my $Needed (qw(DebuggerObject WebserviceID)) {
+        if ( !$Param{$Needed} ) {
+            return {
+                Success      => 0,
+                ErrorMessage => "Got no $Needed!",
+            };
+        }
+        $Self->{$Needed} = $Param{$Needed};
     }
 
     return $Self;
