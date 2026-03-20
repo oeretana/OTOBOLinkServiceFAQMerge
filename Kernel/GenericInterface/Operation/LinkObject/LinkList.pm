@@ -23,16 +23,14 @@ sub new {
     my $Self = {};
     bless( $Self, $Type );
 
-    my $Result = $Self->Init(
-        WebserviceID => $Param{WebserviceID},
-    );
-
-    if ( !$Result->{Success} ) {
-        $Self->ReturnError(
-            ErrorCode    => 'LinkList.InternalError',
-            ErrorMessage => 'LinkList: Could not initialize.',
-        );
-        return;
+    for my $Needed (qw(DebuggerObject WebserviceID)) {
+        if ( !$Param{$Needed} ) {
+            return {
+                Success      => 0,
+                ErrorMessage => "Got no $Needed!",
+            };
+        }
+        $Self->{$Needed} = $Param{$Needed};
     }
 
     return $Self;
