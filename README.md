@@ -1,4 +1,4 @@
-# OTOBOLinkServiceFAQMerge
+# LinkServiceFAQMerge
 
 OPM package for OTOBO that adds 11 REST operations to the Generic Interface: LinkObject (List/Add/Delete), Service catalog (Get/List/Search), SLA (Get/List), agent-level FAQ (Search/Get), and TicketMerge.
 
@@ -29,7 +29,7 @@ OPM package for OTOBO that adds 11 REST operations to the Generic Interface: Lin
 
 1. Build the OPM file:
    ```bash
-   perl bin/otobo.Console.pl Dev::Package::Build /path/to/OTOBOLinkServiceFAQMerge.sopm /path/to/output/
+   perl bin/otobo.Console.pl Dev::Package::Build /path/to/LinkServiceFAQMerge.sopm /path/to/output/
    ```
 2. Go to **Admin → Package Manager** and install the `.opm` file.
 

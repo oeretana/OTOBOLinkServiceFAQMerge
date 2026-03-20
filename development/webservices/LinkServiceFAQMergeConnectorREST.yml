@@ -2,7 +2,7 @@
 Debugger:
   DebugThreshold: error
   TestMode: '0'
-Description: 'OTOBOLinkServiceFAQMerge: LinkObject, Service, SLA, FAQ agent and TicketMerge
+Description: 'LinkServiceFAQMerge: LinkObject, Service, SLA, FAQ agent and TicketMerge
   operations for OTOBO Generic Interface.'
 FrameworkVersion: 10.1.14
 Provider:

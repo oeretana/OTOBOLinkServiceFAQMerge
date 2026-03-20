@@ -1,15 +1,15 @@
 #!/bin/bash
-# Build OTOBOLinkServiceFAQMerge.opm from .sopm and source files.
+# Build LinkServiceFAQMerge.opm from .sopm and source files.
 # Does NOT require an OTOBO installation — portable build.
 #
 # Usage: ./bin/build-opm.sh
-# Output: dist/OTOBOLinkServiceFAQMerge-<version>.opm
+# Output: dist/LinkServiceFAQMerge-<version>.opm
 
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
-SOPM_FILE="$PROJECT_DIR/OTOBOLinkServiceFAQMerge.sopm"
+SOPM_FILE="$PROJECT_DIR/LinkServiceFAQMerge.sopm"
 
 if [ ! -f "$SOPM_FILE" ]; then
     echo "ERROR: $SOPM_FILE not found." >&2
@@ -25,9 +25,9 @@ fi
 
 OUTPUT_DIR="$PROJECT_DIR/dist"
 mkdir -p "$OUTPUT_DIR"
-OPM_FILE="$OUTPUT_DIR/OTOBOLinkServiceFAQMerge-${VERSION}.opm"
+OPM_FILE="$OUTPUT_DIR/LinkServiceFAQMerge-${VERSION}.opm"
 
-echo "Building OTOBOLinkServiceFAQMerge v${VERSION}..."
+echo "Building LinkServiceFAQMerge v${VERSION}..."
 
 # Start building the OPM XML
 {
