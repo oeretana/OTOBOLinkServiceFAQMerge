@@ -87,10 +87,29 @@ sub Run {
         %LinkListParams,
     );
 
+    # Flatten the nested hash structure for JSON serialization.
+    # LinkList returns: {ObjectType}{LinkType}{Direction}{ID} = 1
+    # Convert to a list of link entries for clean JSON output.
+    my @Links;
+    for my $ObjectType ( sort keys %LinkList ) {
+        for my $LinkType ( sort keys %{ $LinkList{$ObjectType} } ) {
+            for my $Direction ( sort keys %{ $LinkList{$ObjectType}{$LinkType} } ) {
+                for my $ObjectKey ( sort keys %{ $LinkList{$ObjectType}{$LinkType}{$Direction} } ) {
+                    push @Links, {
+                        Object    => $ObjectType,
+                        Type      => $LinkType,
+                        Direction => $Direction,
+                        Key       => $ObjectKey,
+                    };
+                }
+            }
+        }
+    }
+
     return {
         Success => 1,
         Data    => {
-            LinkList => \%LinkList,
+            LinkList => \@Links,
         },
     };
 }
